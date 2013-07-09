@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definition>
+
+	<Constants>
+		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
+		<Constant name="css" value="[config.ui.skin]css/" />
+	</Constants>
+
+	<Container>
+		<mouseEnabled>true</mouseEnabled>
+		<Anchors>
+			<Anchor>
+				<AbsDimension x="0"
+							  y="0" />
+			</Anchor>
+		</Anchors>
+
+	</Container>
+</Definition>
