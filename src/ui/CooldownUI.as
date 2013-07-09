@@ -2,6 +2,8 @@ package ui
 {
 	import d2api.SystemApi;
 	import d2api.UiApi;
+	import d2components.ButtonContainer;
+	import d2components.Grid;
 	
 	/**
 	 * Main ui class.
@@ -19,6 +21,10 @@ package ui
 		public var uiApi:UiApi;
 		
 		// Components
+		public var grid_spell:Grid;
+		
+		public var btn_close:ButtonContainer;
+		public var btn_config:ButtonContainer;
 		
 		// Some globals
 		
@@ -33,6 +39,7 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
+			grid_spell.dataProvider = [];
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -75,6 +82,17 @@ package ui
 				default:
 					break;
 			}
+		}
+		
+		/**
+		 * Update grid line.
+		 * 
+		 * @param	data	Data associated to the grid line.
+		 * @param	componentsRef	Link to the components of the grid line.
+		 * @param	selected	Is the line selected ?
+		 */
+		public function updateEntry(data:*, componentsRef:*, selected:Boolean) : void
+		{
 		}
 		
 		//::///////////////////////////////////////////////////////////
