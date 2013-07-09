@@ -34,6 +34,7 @@ package ui
 		public var btn_config:ButtonContainer;
 		
 		// Some globals
+		private var _displayedInfos:Array;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -46,9 +47,9 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
-			initCombobox();
+			_displayedInfos = new Array();
 			
-			grid_spell.dataProvider = [];
+			initCombobox();
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
@@ -110,6 +111,15 @@ package ui
 						break;
 					}
 					
+					if (component.value.id)
+					{
+						displayFighter(component.value.id);
+					}
+					else
+					{
+						displayAllFighters();
+					}
+					
 					break;
 				default:
 					break;
@@ -123,8 +133,13 @@ package ui
 		 * @param	componentsRef	Link to the components of the grid line.
 		 * @param	selected	Is the line selected ?
 		 */
-		public function updateEntry(data:*, componentsRef:*, selected:Boolean) : void
+		public function updateEntry(data:Object, componentsRef:Object, selected:Boolean) : void
 		{
+			if (data)
+			{
+				componentsRef.lbl_name.text = data.label;
+				componentsRef.lbl_cooldown.text = data.cooldown;
+			}
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -142,6 +157,31 @@ package ui
 			cb_fighters.dataProvider = fighterNames;
 		}
 		
+		private function displayFighter(fighterId:int):void
+		{
+			for each (var info:Info in _displayedInfos)
+			{
+				if (info.fighterId == fighterId)
+				{
+					return;
+				}
+			}
+			
+			_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
+			
+			grid_spell.dataProvider = _displayedInfos;
+		}
+		
+		private function displayAllFighters():void
+		{
+			_displayedInfos = new Array();
+			
+			for each (var fighterId:int in fightApi.getFighters())
+			{
+				displayFighter(fighterId);
+			}
+		}
+		
 		/**
 		 * Unload the UI.
 		 */
@@ -149,5 +189,18 @@ package ui
 		{
 			uiApi.unloadUi(uiApi.me().name);
 		}
+	}
+}
+
+class Info {
+	public var fighterId:int;
+	public var label:String;
+	public var cooldown:int;
+	
+	function Info(fighterId:int, label:String, cooldown:int = 0)
+	{
+		this.fighterId = fighterId;
+		this.label = label;
+		this.cooldown = cooldown;
 	}
 }
