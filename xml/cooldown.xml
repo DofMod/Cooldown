@@ -26,6 +26,25 @@
 			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
 			<autoGrid>true</autoGrid>
 		</Texture>
+		
+		<ComboBox name="cb_fighters" strata="TOP">
+			<Anchors>
+				<Anchor relativeTo="tx_background"
+						point="TOPRIGHT"
+						relativePoint="TOPRIGHT">
+					<AbsDimension x="-80" y="21" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="218" y="25" />
+			</Size>
+			
+			<autoSelectMode>0</autoSelectMode>
+			<buttonTexture>[local.assets]btn_combobox</buttonTexture>
+			<listTexture>[local.assets]tx_combobox</listTexture>
+			<rendererArgs>[local.css]normal.css,,,[colors.grid.over],[colors.grid.selected]</rendererArgs>
+			<scrollBarCss>[local.css]scrollBar.css</scrollBarCss>
+		</ComboBox>
 
 		<!-- Spells grid -->
 		<Grid name="grid_spell">

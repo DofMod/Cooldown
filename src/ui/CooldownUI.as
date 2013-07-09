@@ -1,10 +1,13 @@
 package ui
 {
+	import d2api.FightApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
 	import d2components.ButtonContainer;
+	import d2components.ComboBox;
 	import d2components.Grid;
 	import d2enums.ComponentHookList;
+	import d2enums.SelectMethodEnum;
 	
 	/**
 	 * Main ui class.
@@ -20,9 +23,12 @@ package ui
 		// APIs
 		public var sysApi:SystemApi;
 		public var uiApi:UiApi;
+		public var fightApi:FightApi;
 		
 		// Components
 		public var grid_spell:Grid;
+		
+		public var cb_fighters:ComboBox;
 		
 		public var btn_close:ButtonContainer;
 		public var btn_config:ButtonContainer;
@@ -40,9 +46,12 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
+			initCombobox();
+			
 			grid_spell.dataProvider = [];
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -91,6 +100,22 @@ package ui
 			}
 		}
 		
+		public function onSelectItem(component:Object, selectMethod:uint, isNewSelection:Boolean) : void
+		{
+			switch(component)
+			{
+				case cb_fighters:
+					if (selectMethod != SelectMethodEnum.CLICK || !isNewSelection)
+					{
+						break;
+					}
+					
+					break;
+				default:
+					break;
+			}
+		}
+		
 		/**
 		 * Update grid line.
 		 * 
@@ -105,6 +130,17 @@ package ui
 		//::///////////////////////////////////////////////////////////
 		//::// Private methods
 		//::///////////////////////////////////////////////////////////
+		
+		private function initCombobox():void
+		{
+			var fighterNames:Array = [{label:"[All]", id:0}];
+			for each (var fighterId:int in fightApi.getFighters())
+			{
+				fighterNames.push({label:fightApi.getFighterName(fighterId), id:fighterId});
+			}
+			
+			cb_fighters.dataProvider = fighterNames;
+		}
 		
 		/**
 		 * Unload the UI.

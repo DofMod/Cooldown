@@ -132,7 +132,7 @@ package
 		
 		private function loadUi():void
 		{
-			if (uiApi.getUi(UI_INSTANCE_NAME) == null)
+			if (uiApi.getUi(UI_INSTANCE_NAME) == null && sysApi.isFightContext())
 			{
 				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
 			}
