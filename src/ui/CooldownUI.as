@@ -4,6 +4,7 @@ package ui
 	import d2api.UiApi;
 	import d2components.ButtonContainer;
 	import d2components.Grid;
+	import d2enums.ComponentHookList;
 	
 	/**
 	 * Main ui class.
@@ -40,6 +41,8 @@ package ui
 		public function main(params:Object):void
 		{
 			grid_spell.dataProvider = [];
+			
+			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -79,6 +82,10 @@ package ui
 		{
 			switch (target)
 			{
+				case btn_close:
+					unloadUI();
+					
+					break;
 				default:
 					break;
 			}
@@ -98,5 +105,13 @@ package ui
 		//::///////////////////////////////////////////////////////////
 		//::// Private methods
 		//::///////////////////////////////////////////////////////////
+		
+		/**
+		 * Unload the UI.
+		 */
+		private function unloadUI():void
+		{
+			uiApi.unloadUi(uiApi.me().name);
+		}
 	}
 }

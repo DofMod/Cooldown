@@ -1,8 +1,11 @@
 package
 {
+	import d2api.FightApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
 	import d2data.ContextMenuData;
+	import d2hooks.GameFightEnd;
+	import d2hooks.GameFightLeave;
 	import d2hooks.OpeningContextMenu;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
@@ -33,6 +36,7 @@ package
 		// APIs
 		public var uiApi:UiApi;
 		public var sysApi:SystemApi;
+		public var fightApi:FightApi;
 		
 		// Some globals
 		
@@ -43,6 +47,8 @@ package
 		public function main():void
 		{
 			sysApi.addHook(OpeningContextMenu, onOpeningContextMenu);
+			sysApi.addHook(GameFightEnd, onGameFightEnd);
+			sysApi.addHook(GameFightLeave, onGameFightLeave);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -60,6 +66,19 @@ package
 					
 					appendToItemModule((data as ContextMenuData), item1);
 				}
+			}
+		}
+		
+		private function onGameFightEnd(result:Object):void
+		{
+			unloadUi();
+		}
+		
+		private function onGameFightLeave(fighterId:int):void
+		{
+			if (fightApi.getCurrentPlayedFighterId() == fighterId)
+			{
+				unloadUi();
 			}
 		}
 		
@@ -100,9 +119,22 @@ package
 		
 		private function cooldownCallback():void
 		{
+			loadUi();
+		}
+		
+		private function loadUi():void
+		{
 			if (uiApi.getUi(UI_INSTANCE_NAME) == null)
 			{
 				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
+			}
+		}
+		
+		private function unloadUi():void
+		{
+			if (uiApi.getUi(UI_INSTANCE_NAME) != null)
+			{
+				uiApi.unloadUi(UI_INSTANCE_NAME);
 			}
 		}
 	}
