@@ -62,7 +62,8 @@ package
 				var menuData:ContextMenuData = data as ContextMenuData;
 				if (data.makerName == "fightWorld")
 				{
-					var item1:* = modContextMenu.createContextMenuItemObject("Cooldown", cooldownCallback);
+					// createContextMenuItemObject(label, callback, callbackArgs, disabled, childs, selected, ...)
+					var item1:* = modContextMenu.createContextMenuItemObject("Cooldown", cooldownCallback, null, false, null, isLoadedUi());
 					
 					appendToItemModule((data as ContextMenuData), item1);
 				}
@@ -119,7 +120,14 @@ package
 		
 		private function cooldownCallback():void
 		{
-			loadUi();
+			if (isLoadedUi())
+			{
+				unloadUi();
+			}
+			else
+			{
+				loadUi();
+			}
 		}
 		
 		private function loadUi():void
@@ -136,6 +144,11 @@ package
 			{
 				uiApi.unloadUi(UI_INSTANCE_NAME);
 			}
+		}
+		
+		private function isLoadedUi():Boolean
+		{
+			return uiApi.getUi(UI_INSTANCE_NAME) != null;
 		}
 	}
 }
