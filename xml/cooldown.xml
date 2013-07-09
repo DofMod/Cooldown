@@ -19,7 +19,7 @@
 
 		<Texture name="tx_background">
 			<Size>
-				<AbsDimension x="440"
+				<AbsDimension x="430"
 							  y="270" />
 			</Size>
 
@@ -82,7 +82,7 @@
 			<rendererName>InlineXmlGridRender</rendererName>
 			<rendererArgs>updateEntry,[colors.grid.line],</rendererArgs>
 			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
-			<slotWidth>380</slotWidth>
+			<slotWidth>400</slotWidth>
 			<slotHeight>30</slotHeight>
 
 			<!-- Grid line -->
@@ -117,6 +117,21 @@
 					<css>[local.css]normal.css</css>
 					<cssClass>p0</cssClass>
 				</Label>
+				
+				<iconButton name="btn_delete">
+					<Anchors>
+						<Anchor>
+							<AbsDimension x="372"
+										  y="2" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsDimension x="26"
+									  y="26" />
+					</Size>
+
+					<uri>[local.assets]btn_cross_square</uri>
+				</iconButton>
 			</Container>
 		</Grid>
 
@@ -127,7 +142,6 @@
 						point="TOPRIGHT"
 						relativePoint="TOPRIGHT" />
 			</Anchors>
-
 			<Size>
 				<AbsDimension x="57"
 							  y="36" />
