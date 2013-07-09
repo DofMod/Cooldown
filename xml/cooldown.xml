@@ -26,19 +26,39 @@
 			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
 			<autoGrid>true</autoGrid>
 		</Texture>
-		
-		<ComboBox name="cb_fighters" strata="TOP">
+
+		<Label>
+			<Anchors>
+				<Anchor>
+					<AbsDimension x="20"
+								  y="20" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="400"
+							  y="37" />
+			</Size>
+
+			<text>Combabants:</text>
+			<css>[local.css]normal.css</css>
+			<cssClass>title</cssClass>
+		</Label>
+
+		<ComboBox name="cb_fighters"
+				  strata="TOP">
 			<Anchors>
 				<Anchor relativeTo="tx_background"
 						point="TOPRIGHT"
 						relativePoint="TOPRIGHT">
-					<AbsDimension x="-80" y="21" />
+					<AbsDimension x="-80"
+								  y="21" />
 				</Anchor>
 			</Anchors>
 			<Size>
-				<AbsDimension x="218" y="25" />
+				<AbsDimension x="218"
+							  y="25" />
 			</Size>
-			
+
 			<autoSelectMode>0</autoSelectMode>
 			<buttonTexture>[local.assets]btn_combobox</buttonTexture>
 			<listTexture>[local.assets]tx_combobox</listTexture>
