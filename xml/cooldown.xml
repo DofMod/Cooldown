@@ -88,7 +88,7 @@
 			</Size>
 
 			<rendererName>MultiGridRenderer</rendererName>
-			<rendererArgs>updateEntry,getLineType,getDataLength,[colors.grid.line]</rendererArgs>
+			<rendererArgs>updateEntry,getLineType,getDataLength,</rendererArgs>
 			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
 			<slotWidth>[local.line_width]</slotWidth>
 			<slotHeight>[local.line_height]</slotHeight>
