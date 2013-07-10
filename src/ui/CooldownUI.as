@@ -268,7 +268,7 @@ package ui
 					
 					break;
 				case LINE_FIGHTER:
-					componentsRef.tx_team.uri = uiApi.createUri(uiApi.me().getConstant("localAssets") + "tx_team_" + (fightApi.getFighterInformations(data.fighterId).team == "challenger" ? "blue" : "red"));
+					componentsRef.tx_team.uri = uiApi.createUri(uiApi.me().getConstant("localAssets") + "tx_team_" + (fightApi.getFighterInformations(data.fighterId).team == "challenger" ? "red" : "blue"));
 					
 					componentsRef.lbl_name.text = data.label;
 					
