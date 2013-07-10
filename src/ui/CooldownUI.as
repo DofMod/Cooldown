@@ -42,6 +42,10 @@ package ui
 		public var fightApi:FightApi;
 		public var dataApi:DataApi;
 		
+		// Modules
+		[Module (name="Ankama_Common")]
+		public var modCommon : Object;
+		
 		// Components
 		public var ctn_main:GraphicContainer;
 		
@@ -89,6 +93,9 @@ package ui
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
+			
+			uiApi.addComponentHook(btn_config, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
+			uiApi.addComponentHook(btn_config, ComponentHookList.ON_RELEASE);
 			
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
 			
@@ -174,6 +181,10 @@ package ui
 			{
 				case btn_close:
 					unloadUI();
+					
+					break;
+				case btn_config:
+					modCommon.openOptionMenu(false, "module_cooldown");
 					
 					break;
 				case ctn_main:

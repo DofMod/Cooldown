@@ -18,6 +18,7 @@
 
     <!-- Liste des interfaces du module, avec nom de l'interface, nom du fichier squelette .xml et nom de la classe script d'interface -->
     <uis>
+		<ui name="config" file="xml/config.xml" class="ui::ConfigUI"/>
         <ui name="cooldown" file="xml/cooldown.xml" class="ui::CooldownUI" />
     </uis>
     

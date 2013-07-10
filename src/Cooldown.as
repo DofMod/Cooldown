@@ -15,6 +15,7 @@ package
 	import flash.utils.getQualifiedClassName;
 	import managers.SpellManager;
 	import types.CastedSpell;
+	import ui.ConfigUI;
 	import ui.CooldownUI;
 	
 	/**
@@ -29,11 +30,14 @@ package
 		//::///////////////////////////////////////////////////////////
 		
 		// UI include
-		private const includes:Array = [CooldownUI];
+		private const includes:Array = [CooldownUI, ConfigUI];
 		
 		// Modules
 		[Module (name="Ankama_ContextMenu")]
 		public var modContextMenu : Object;
+		
+		[Module (name="Ankama_Common")]
+		public var modCommon : Object;
 		
 		// Some constants
 		private static const UI_NAME:String = "cooldown";
@@ -61,6 +65,8 @@ package
 			sysApi.addHook(GameFightLeave, onGameFightLeave);
 			sysApi.addHook(FightEvent, onFightEvent);
 			sysApi.addHook(GameFightTurnEnd, onGameFightTurnEnd);
+			
+			modCommon.addOptionItem("module_cooldown", "(M) Cooldown", "Options du module Cooldown", "Cooldown::config");
 		}
 		
 		//::///////////////////////////////////////////////////////////

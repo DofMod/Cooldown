@@ -1,0 +1,57 @@
+package ui
+{
+	import d2api.SystemApi;
+	import d2api.UiApi;
+	import d2components.ButtonContainer;
+	import d2enums.ComponentHookList;
+	import enums.ConfigEnum;
+	
+	/**
+	 * @author Relena
+	 */
+	public class ConfigUI
+	{
+		//::////////////////////////////////////////////////////////////////////
+		//::// Properties
+		//::////////////////////////////////////////////////////////////////////
+		
+		// APIs
+		public var sysApi:SystemApi;
+		public var uiApi:UiApi;
+		
+		// Components
+		public var btn_died:ButtonContainer;
+		
+		//::////////////////////////////////////////////////////////////////////
+		//::// Public Methods
+		//::////////////////////////////////////////////////////////////////////
+		
+		public function main(params:Object):void
+		{
+			btn_died.selected = sysApi.getData(ConfigEnum.DISPLAY_DIED);
+			
+			uiApi.addComponentHook(btn_died, ComponentHookList.ON_RELEASE);
+		}
+		
+		//::////////////////////////////////////////////////////////////////////
+		//::// Events
+		//::////////////////////////////////////////////////////////////////////
+		
+		public function onRelease(target:Object):void
+		{
+			switch(target)
+			{
+				case btn_died:
+					sysApi.setData(ConfigEnum.DISPLAY_DIED, target.selected);
+					
+					break;
+				default:
+					break;
+			}
+		}
+		
+		//::////////////////////////////////////////////////////////////////////
+		//::// Private Methods
+		//::////////////////////////////////////////////////////////////////////
+	}
+}

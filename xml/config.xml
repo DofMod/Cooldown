@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definition>
+	<Import url="mod://Ankama_Config/ui/template/configCheckbox.xml" />
+
+	<Constants>
+		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
+		<Constant name="css" value="[config.ui.skin]css/" />
+	</Constants>
+
+	<Container name="ctn_main">
+
+		<!-- Label title -->
+		<Label name="lbl_title1">
+			<Anchors>
+				<Anchor>
+					<AbsDimension x="0"
+								  y="0" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="750"
+							  y="20" />
+			</Size>
+			<text>[ui.option.worldOption]</text>
+			<css>[local.css]titleSmall.css</css>
+		</Label>
+
+		<!-- Texture tx_bgForeground1-->
+		<Texture name="tx_bgForeground1">
+			<Anchors>
+				<Anchor relativeTo="lbl_title1">
+					<AbsDimension x="0"
+								  y="30" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="780"
+							  y="145" />
+			</Size>
+			<autoGrid>true</autoGrid>
+			<uri>[local.assets]tx_darkBg</uri>
+		</Texture>
+
+		<!-- Container useless mais un peu qd mm, sert ? placer les checkbox -->
+		<Container>
+			<Anchors>
+				<Anchor relativeTo="tx_bgForeground1">
+					<AbsDimension x="20"
+								  y="0" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="20"
+							  y="10" />
+			</Size>
+		</Container>
+
+		<configCheckbox name="btn_died"
+						text="Afficher les personnages morts"
+						uri="[local.assets]tx_light_checkbox" />
+
+	</Container>
+</Definition>
+
