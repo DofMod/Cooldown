@@ -55,6 +55,7 @@ package ui
 			_displayedFighter = new Array();
 			
 			initCombobox();
+			initGrid();
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
@@ -185,6 +186,11 @@ package ui
 			}
 			
 			cb_fighters.dataProvider = fighterNames;
+		}
+		
+		private function initGrid():void
+		{
+			grid_spell.dataProvider = [];
 		}
 		
 		private function displayFighter(fighterId:int):void
