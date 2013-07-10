@@ -8,7 +8,9 @@ package ui
 	import d2components.ComboBox;
 	import d2components.Grid;
 	import d2enums.ComponentHookList;
+	import d2enums.FightEventEnum;
 	import d2enums.SelectMethodEnum;
+	import d2hooks.FightEvent;
 	import types.CastedSpell;
 	
 	/**
@@ -59,6 +61,8 @@ package ui
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
+			
+			sysApi.addHook(FightEvent, onFightEvent);
 		}
 		
 		public function update(castedSpells:Vector.<CastedSpell>):void
@@ -192,6 +196,21 @@ package ui
 				componentsRef.lbl_cooldown.text = "";
 				
 				componentsRef.btn_delete.visible = false;
+			}
+		}
+		
+		/**
+		 * FightEvent callback.
+		 *
+		 * @param	eventName	Name of the current event.
+		 * @param	params		Parameters of the current event.
+		 * @param	targetList	(not used).
+		 */
+		private function onFightEvent(eventName:String, params:Object, targetList:Object = null):void
+		{
+			if (eventName == FightEventEnum.FIGHTER_DEATH || eventName == FightEventEnum.FIGHTER_SUMMONED)
+			{
+				initCombobox();
 			}
 		}
 		
