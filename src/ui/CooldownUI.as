@@ -47,6 +47,10 @@ package ui
 		public var btn_config:ButtonContainer;
 		
 		// Some globals
+		private var _minNbLine:int;
+		private var _maxNbLines:int;
+		private var _lineHeight:int;
+		
 		private var _displayedInfos:Array;
 		private var _displayedFighter:Array;
 		
@@ -63,6 +67,10 @@ package ui
 		{
 			_displayedInfos = new Array();
 			_displayedFighter = new Array();
+			
+			_minNbLine = 3;
+			_maxNbLines = 15;
+			_lineHeight = this.uiApi.me().getConstant("line_height");
 			
 			initCombobox();
 			initGrid();
@@ -259,19 +267,19 @@ package ui
 		
 		private function initGrid(infos:Array = null):void
 		{
-			if (!infos || infos.length <= 3)
+			if (!infos || infos.length <= _minNbLine)
 			{
-				grid_spell.height = 90;
+				grid_spell.height = _minNbLine * _lineHeight;
 				tx_background.height = grid_spell.height + 75;
 			}
-			else if (infos.length > 15)
+			else if (infos.length > _maxNbLines)
 			{
-				grid_spell.height = 30 * 15;
+				grid_spell.height = _lineHeight * _maxNbLines;
 				tx_background.height = grid_spell.height + 75;
 			}
 			else
 			{
-				grid_spell.height = 30 * infos.length;
+				grid_spell.height = _lineHeight * infos.length;
 				tx_background.height = grid_spell.height + 75;
 			}
 			

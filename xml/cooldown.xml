@@ -6,6 +6,14 @@
 	<Constants>
 		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
 		<Constant name="css" value="[config.ui.skin]css/" />
+		
+		<Constant name="line_height" value="30" type="int" />
+		<Constant name="grid_height" value="90" type="int" /> <!-- line_height * 3 -->
+		<Constant name="bg_height" value="165" type="int" /> <!-- grid_height + 75 -->
+		
+		<Constant name="line_width" value="400" type="int" />
+		<Constant name="grid_width" value="400" type="int" /> <!-- line_width -->
+		<Constant name="bg_width" value="430" type="int" /> <!-- grid_width + 30 -->
 	</Constants>
 
 	<Container>
@@ -19,8 +27,8 @@
 
 		<Texture name="tx_background">
 			<Size>
-				<AbsDimension x="430"
-							  y="165" />
+				<AbsDimension x="[local.bg_width]"
+							  y="[local.bg_height]" />
 			</Size>
 
 			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
@@ -75,15 +83,15 @@
 				</Anchor>
 			</Anchors>
 			<Size>
-				<AbsDimension x="400"
-							  y="90" />
+				<AbsDimension x="[local.grid_width]"
+							  y="[local.grid_height]" />
 			</Size>
 
 			<rendererName>MultiGridRenderer</rendererName>
 			<rendererArgs>updateEntry,getLineType,getDataLength,[colors.grid.line]</rendererArgs>
 			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
-			<slotWidth>400</slotWidth>
-			<slotHeight>30</slotHeight>
+			<slotWidth>[local.line_width]</slotWidth>
+			<slotHeight>[local.line_height]</slotHeight>
 
 			<!-- Grid line spell -->
 			<Container name="line_spell">
@@ -123,8 +131,8 @@
 			<Container name="line_fighter">
 				<Texture>
 					<Size>
-						<AbsDimension x="400"
-									  y="30" />
+						<AbsDimension x="[local.line_width]"
+									  y="[local.line_height]" />
 					</Size>
 					
 					<autoGrid>true</autoGrid>
