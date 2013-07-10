@@ -12,6 +12,7 @@ package ui
 	import d2enums.FightEventEnum;
 	import d2enums.SelectMethodEnum;
 	import d2hooks.FightEvent;
+	import enums.ConfigEnum;
 	import flash.geom.Rectangle;
 	import managers.SpellManager;
 	import types.CastedSpell;
@@ -88,6 +89,7 @@ package ui
 			_maxNbLines = 15;
 			_lineHeight = this.uiApi.me().getConstant("line_height");
 			
+			initPosition();
 			initCombobox();
 			initGrid();
 			
@@ -336,6 +338,16 @@ package ui
 		//::// Private methods
 		//::///////////////////////////////////////////////////////////
 		
+		private function initPosition():void
+		{
+			var position:Array = sysApi.getData(ConfigEnum.POSITION);
+			if (position)
+			{
+				ctn_main.x = position[0];
+				ctn_main.y = position[1];
+			}
+		}
+		
 		private function initCombobox():void
 		{
 			var fighterNames:Array = [ { label:"[Tous]", id:ALL_ID }, { label:"[Alliés]", id:ALLIES_ID }, { label:"[Ennemis]", id:ENNEMIES_ID } ];
@@ -393,6 +405,8 @@ package ui
 		private function dragUiStop() : void
 		{
 			ctn_main.stopDrag();
+			
+			sysApi.setData(ConfigEnum.POSITION, [ctn_main.x, ctn_main.y]);
 		}
 		
 		private function displayFighter(fighterId:int):void
