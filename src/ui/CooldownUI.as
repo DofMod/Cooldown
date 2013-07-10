@@ -175,7 +175,7 @@ package ui
 				default:
 					if (target.name.indexOf("btn_delete") != -1)
 					{
-						hideFighter(target.value);
+						removeFighter(target.value);
 					}
 					
 					break;
@@ -384,7 +384,7 @@ package ui
 			}
 		}
 		
-		private function hideFighter(fighterId:int):void
+		private function removeFighter(fighterId:int):void
 		{
 			_displayedFighter.splice(_displayedFighter.indexOf(fighterId), 1);
 			
