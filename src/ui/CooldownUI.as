@@ -24,6 +24,11 @@ package ui
 		//::// Variables
 		//::///////////////////////////////////////////////////////////
 		
+		// Some constants
+		private static const LINE_EMPTY:String = "line_empty";
+		private static const LINE_SPELL:String = "line_spell";
+		private static const LINE_FIGHTER:String = "line_fighter";
+		
 		// APIs
 		public var sysApi:SystemApi;
 		public var uiApi:UiApi;
@@ -167,35 +172,55 @@ package ui
 		 * @param	data	Data associated to the grid line.
 		 * @param	componentsRef	Link to the components of the grid line.
 		 * @param	selected	Is the line selected ?
+		 * @param	param4	(no idea what is that)
 		 */
-		public function updateEntry(data:Object, componentsRef:Object, selected:Boolean) : void
+		public function updateEntry(data:Object, componentsRef:Object, selected:Boolean, param4:uint) : void
 		{
-			if (data)
+			switch (getLineType(data, param4))
 			{
-				componentsRef.lbl_name.text = data.label;
-				
-				if (data.isSpell)
-				{
+				case LINE_SPELL:
+					componentsRef.lbl_name.text = data.label;
 					componentsRef.lbl_cooldown.text = data.cooldown;
 					
-					componentsRef.btn_delete.visible = false;
-				}
-				else
-				{
-					componentsRef.lbl_cooldown.text = "";
+					break;
+				case LINE_FIGHTER:
+					componentsRef.lbl_name.text = data.label;
 					
-					componentsRef.btn_delete.visible = true;
 					componentsRef.btn_delete.value = data.fighterId;
 					
 					uiApi.addComponentHook(componentsRef.btn_delete, ComponentHookList.ON_RELEASE);
-				}
+					
+					break;
+			}
+		}
+		
+		public function getDataLength(param1:Object, param2:Boolean):int
+		{
+			sysApi.log(8, "datalenght: " + param1 + ", " + param2);
+			
+			return 11;
+		}
+		
+		/**
+		 * Select the containe to display in the grid line.
+		 * 
+		 * @param	data	Data of the line (Info).
+		 * @param	param2	(no idea what is that).
+		 * @return	The name of the container use.
+		 */
+		public function getLineType(data:Object, param2:uint):String
+		{
+			if (!data)
+			{
+				return LINE_EMPTY;
+			}
+			else if (data.isSpell)
+			{
+				return LINE_SPELL;
 			}
 			else
 			{
-				componentsRef.lbl_name.text = "";
-				componentsRef.lbl_cooldown.text = "";
-				
-				componentsRef.btn_delete.visible = false;
+				return LINE_FIGHTER;
 			}
 		}
 		

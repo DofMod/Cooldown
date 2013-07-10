@@ -79,14 +79,14 @@
 							  y="180" />
 			</Size>
 
-			<rendererName>InlineXmlGridRender</rendererName>
-			<rendererArgs>updateEntry,[colors.grid.line],</rendererArgs>
+			<rendererName>MultiGridRenderer</rendererName>
+			<rendererArgs>updateEntry,getLineType,getDataLength,[colors.grid.line]</rendererArgs>
 			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
 			<slotWidth>400</slotWidth>
 			<slotHeight>30</slotHeight>
 
-			<!-- Grid line -->
-			<Container>
+			<!-- Grid line spell -->
+			<Container name="line_spell">
 				<Label name="lbl_name">
 					<Anchors>
 						<Anchor>
@@ -117,7 +117,35 @@
 					<css>[local.css]normal.css</css>
 					<cssClass>p0</cssClass>
 				</Label>
-				
+			</Container>
+			
+			<!-- Grid line fighter -->
+			<Container name="line_fighter">
+				<Texture>
+					<Size>
+						<AbsDimension x="400"
+									  y="30" />
+					</Size>
+					
+					<autoGrid>true</autoGrid>
+					<uri>[local.assets]tx_bgSubTitle</uri>
+				</Texture>
+
+				<Label name="lbl_name">
+					<Anchors>
+						<Anchor>
+							<AbsDimension x="5"
+										  y="0" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsDimension x="290"
+									  y="30" />
+					</Size>
+
+					<css>[local.css]normal.css</css>
+				</Label>
+
 				<iconButton name="btn_delete">
 					<Anchors>
 						<Anchor>
@@ -132,6 +160,19 @@
 
 					<uri>[local.assets]btn_cross_square</uri>
 				</iconButton>
+			</Container>
+			
+			<!-- Grid line empty -->
+			<Container name="line_empty">
+				<Texture>
+					<Size>
+						<AbsDimension x="400"
+									  y="30" />
+					</Size>
+					
+					<autoGrid>true</autoGrid>
+					<uri>[local.assets]tx_bgSubTitle</uri>
+				</Texture>
 			</Container>
 		</Grid>
 
