@@ -341,7 +341,10 @@ package ui
 			var fighterNames:Array = [ { label:"[Tous]", id:ALL_ID }, { label:"[Alliés]", id:ALLIES_ID }, { label:"[Ennemis]", id:ENNEMIES_ID } ];
 			for each (var fighterId:int in fightApi.getFighters())
 			{
-				fighterNames.push({label:fightApi.getFighterName(fighterId), id:fighterId});
+				if (fightApi.getFighterInformations(fighterId).isAlive)
+				{
+					fighterNames.push( { label:fightApi.getFighterName(fighterId), id:fighterId } );
+				}
 			}
 			
 			cb_fighters.dataProvider = fighterNames;
@@ -425,6 +428,11 @@ package ui
 			
 			for each (var fighterId:int in fightApi.getFighters())
 			{
+				if (fightApi.getFighterInformations(fighterId).isAlive == false)
+				{
+					continue;
+				}
+				
 				var hisTeam:String = fightApi.getFighterInformations(fighterId).team;
 				
 				switch (typeId)
