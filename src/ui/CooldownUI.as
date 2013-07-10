@@ -32,6 +32,9 @@ package ui
 		private static const LINE_SPELL:String = "line_spell";
 		private static const LINE_FIGHTER:String = "line_fighter";
 		private static const BANNER_HEIGHT:int = 160;
+		private static const ALL_ID:int = -1000;
+		private static const ALLIES_ID:int = -1001;
+		private static const ENNEMIES_ID:int = -1002;
 		
 		// APIs
 		public var sysApi:SystemApi;
@@ -213,13 +216,18 @@ package ui
 						break;
 					}
 					
-					if (component.value.id)
+					switch (component.value.id)
 					{
-						displayFighter(component.value.id);
-					}
-					else
-					{
-						displayAllFighters();
+						case ALL_ID:
+						case ALLIES_ID:
+						case ENNEMIES_ID:
+							displayAllFighters(component.value.id);
+							
+							break;
+						default:
+							displayFighter(component.value.id);
+							
+							break;
 					}
 					
 					break;
@@ -309,7 +317,7 @@ package ui
 		
 		private function initCombobox():void
 		{
-			var fighterNames:Array = [{label:"[All]", id:0}];
+			var fighterNames:Array = [ { label:"[Tous]", id:ALL_ID }, { label:"[Alliés]", id:ALLIES_ID }, { label:"[Ennemis]", id:ENNEMIES_ID } ];
 			for each (var fighterId:int in fightApi.getFighters())
 			{
 				fighterNames.push({label:fightApi.getFighterName(fighterId), id:fighterId});
@@ -387,14 +395,40 @@ package ui
 			initGrid(_displayedInfos);
 		}
 		
-		private function displayAllFighters():void
+		private function displayAllFighters(typeId:int = ALL_ID):void
 		{
 			_displayedFighter = new Array();
 			_displayedInfos = new Array();
 			
+			var myTeam:String = fightApi.getFighterInformations(fightApi.getCurrentPlayedFighterId()).team;
+			
 			for each (var fighterId:int in fightApi.getFighters())
 			{
-				displayFighter(fighterId);
+				var hisTeam:String = fightApi.getFighterInformations(fighterId).team;
+				
+				switch (typeId)
+				{
+					case ALL_ID:
+						displayFighter(fighterId);
+						
+						break;
+					case ALLIES_ID:
+						if (myTeam == hisTeam || (myTeam == null && hisTeam == "challenger"))
+						{
+							displayFighter(fighterId);
+						}
+						
+						break;
+					case ENNEMIES_ID:
+						if ((myTeam != hisTeam && myTeam != null) || (myTeam == null && hisTeam == "defender"))
+						{
+							displayFighter(fighterId);
+						}
+						
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		
