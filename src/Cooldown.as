@@ -9,8 +9,10 @@ package
 	import d2hooks.FightEvent;
 	import d2hooks.GameFightEnd;
 	import d2hooks.GameFightLeave;
+	import d2hooks.GameFightStart;
 	import d2hooks.GameFightTurnEnd;
 	import d2hooks.OpeningContextMenu;
+	import enums.ConfigEnum;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
 	import managers.SpellManager;
@@ -65,6 +67,11 @@ package
 			sysApi.addHook(GameFightLeave, onGameFightLeave);
 			sysApi.addHook(FightEvent, onFightEvent);
 			sysApi.addHook(GameFightTurnEnd, onGameFightTurnEnd);
+			
+			if (sysApi.getData(ConfigEnum.OPEN_AUTO))
+			{
+				sysApi.addHook(GameFightStart, onGameFightStart);
+			}
 			
 			modCommon.addOptionItem("module_cooldown", "(M) Cooldown", "Options du module Cooldown", "Cooldown::config");
 		}
@@ -154,6 +161,11 @@ package
 			{
 				unloadUi();
 			}
+		}
+		
+		private function onGameFightStart():void
+		{
+			loadUi();
 		}
 		
 		//::///////////////////////////////////////////////////////////

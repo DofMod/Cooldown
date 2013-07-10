@@ -20,7 +20,7 @@ package ui
 		public var uiApi:UiApi;
 		
 		// Components
-		public var btn_died:ButtonContainer;
+		public var btn_open_auto:ButtonContainer;
 		
 		//::////////////////////////////////////////////////////////////////////
 		//::// Public Methods
@@ -28,9 +28,9 @@ package ui
 		
 		public function main(params:Object):void
 		{
-			btn_died.selected = sysApi.getData(ConfigEnum.DISPLAY_DIED);
+			btn_open_auto.selected = sysApi.getData(ConfigEnum.OPEN_AUTO);
 			
-			uiApi.addComponentHook(btn_died, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(btn_open_auto, ComponentHookList.ON_RELEASE);
 		}
 		
 		//::////////////////////////////////////////////////////////////////////
@@ -41,8 +41,8 @@ package ui
 		{
 			switch(target)
 			{
-				case btn_died:
-					sysApi.setData(ConfigEnum.DISPLAY_DIED, target.selected);
+				case btn_open_auto:
+					sysApi.setData(ConfigEnum.OPEN_AUTO, target.selected);
 					
 					break;
 				default:

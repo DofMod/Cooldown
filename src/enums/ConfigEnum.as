@@ -8,6 +8,6 @@ package enums
 	 */
 	public class ConfigEnum
 	{
-		public static const DISPLAY_DIED:String = "died";
+		public static const OPEN_AUTO:String = "open";
 	}
 }

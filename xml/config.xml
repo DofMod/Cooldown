@@ -55,8 +55,8 @@
 			</Size>
 		</Container>
 
-		<configCheckbox name="btn_died"
-						text="Afficher les personnages morts"
+		<configCheckbox name="btn_open_auto"
+						text="Automatiquement ouvrir le module en début de combat."
 						uri="[local.assets]tx_light_checkbox" />
 
 	</Container>
