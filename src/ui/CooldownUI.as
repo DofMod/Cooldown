@@ -140,6 +140,11 @@ package ui
 				componentsRef.lbl_name.text = data.label;
 				componentsRef.lbl_cooldown.text = data.cooldown;
 			}
+			else
+			{
+				componentsRef.lbl_name.text = "";
+				componentsRef.lbl_cooldown.text = "";
+			}
 		}
 		
 		//::///////////////////////////////////////////////////////////
