@@ -99,6 +99,7 @@ package ui
 			uiApi.addComponentHook(btn_config, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 			uiApi.addComponentHook(btn_config, ComponentHookList.ON_RELEASE);
 			
+			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
 			
 			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_PRESS);
