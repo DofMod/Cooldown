@@ -3,7 +3,15 @@ Cooldown
 
 By *Relena* 
 
-Ce module a pour but d'aider les joueurs à équiper leurs pierres d'âme.
+Ce module enregistre les sorts lancé en combat et qui on un cooldown > 1. Il les affiche enssuite dans une petite interface.
+
+* L'interface se redimentionne automatiquement.
+* L'interface peut s'ouvrir automatiquement au début d'un combat. Ou pas.
+* L'interface est deplacable.
+* L'interface permet de selectioner avec précision les personnages que l'on souhaite suivre.
+
+![Interface avec le thème sombre](http://imageshack.us/a/img856/3005/srr0.png "Interface avec le thème sombre")
+![Interface avec le thème beige](http://imageshack.us/a/img163/8457/rhb5.png "Interface avec le thème beige")
 
 Download + Compile:
 -------------------
