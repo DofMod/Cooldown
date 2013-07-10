@@ -315,10 +315,20 @@ package ui
 		 */
 		private function onFightEvent(eventName:String, params:Object, targetList:Object = null):void
 		{
-			if (eventName == FightEventEnum.FIGHTER_DEATH || eventName == FightEventEnum.FIGHTER_SUMMONED)
+			switch (eventName)
 			{
-				initCombobox();
-				update();
+				case FightEventEnum.FIGHTER_DEATH:
+					initCombobox();
+					
+					removeFighter(params[0]);
+					
+					break
+				case FightEventEnum.FIGHTER_SUMMONED:
+					initCombobox();
+					
+					break;
+				default:
+					break;
 			}
 		}
 		
