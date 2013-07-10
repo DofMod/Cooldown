@@ -13,6 +13,7 @@ package ui
 	import d2enums.SelectMethodEnum;
 	import d2hooks.FightEvent;
 	import flash.geom.Rectangle;
+	import managers.SpellManager;
 	import types.CastedSpell;
 	
 	/**
@@ -55,6 +56,8 @@ package ui
 		private var _maxNbLines:int;
 		private var _lineHeight:int;
 		
+		private var _spellManager:SpellManager;
+		
 		private var _displayedInfos:Array;
 		private var _displayedFighter:Array;
 		
@@ -69,6 +72,8 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
+			_spellManager = params as SpellManager;
+			
 			_displayedInfos = new Array();
 			_displayedFighter = new Array();
 			
@@ -91,7 +96,7 @@ package ui
 			sysApi.addHook(FightEvent, onFightEvent);
 		}
 		
-		public function update(castedSpells:Vector.<CastedSpell>):void
+		public function update():void
 		{
 			_displayedInfos = new Array();
 			
@@ -99,7 +104,7 @@ package ui
 			{
 				_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
 				
-				for each (var castedSpell:CastedSpell in castedSpells)
+				for each (var castedSpell:CastedSpell in _spellManager.all())
 				{
 					if (castedSpell.fighterId == fighterId)
 					{

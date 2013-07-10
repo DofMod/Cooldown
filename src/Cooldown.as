@@ -13,6 +13,7 @@ package
 	import d2hooks.OpeningContextMenu;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
+	import managers.SpellManager;
 	import types.CastedSpell;
 	import ui.CooldownUI;
 	
@@ -45,7 +46,7 @@ package
 		public var dataApi:DataApi;
 		
 		// Some globals
-		private var _castedSpells:Vector.<CastedSpell>;
+		private var _spellManager:SpellManager;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -53,7 +54,7 @@ package
 		
 		public function main():void
 		{
-			_castedSpells = new Vector.<CastedSpell>();
+			_spellManager = new SpellManager();
 			
 			sysApi.addHook(OpeningContextMenu, onOpeningContextMenu);
 			sysApi.addHook(GameFightEnd, onGameFightEnd);
@@ -89,35 +90,35 @@ package
 				castedSpell.spellId = params[3];
 				castedSpell.cooldown = cooldown;
 				
-				_castedSpells.push(castedSpell);
+				_spellManager.push(castedSpell);
 				
 				if (isLoadedUi())
 				{
-					getUiScript().update(_castedSpells);
+					getUiScript().update();
 				}
 			}
 		}
 		
 		private function onGameFightTurnEnd(fighterId:int):void
 		{
-			for (var index:int = 0; index < _castedSpells.length; index++)
+			for (var index:int = 0; index < _spellManager.length; index++)
 			{
-				if (_castedSpells[index].fighterId != fighterId)
+				if (_spellManager.at(index).fighterId != fighterId)
 				{
 					continue;
 				}
 				
-				_castedSpells[index].cooldown--;
+				_spellManager.at(index).cooldown--;
 				
-				if (_castedSpells[index].cooldown == -1)
+				if (_spellManager.at(index).cooldown == -1)
 				{
-					_castedSpells.splice(index, 1);
+					_spellManager.removeAt(index);
 				}
 			}
 			
 			if (isLoadedUi())
 			{
-				getUiScript().update(_castedSpells);
+				getUiScript().update();
 			}
 		}
 		
@@ -200,7 +201,7 @@ package
 		{
 			if (uiApi.getUi(UI_INSTANCE_NAME) == null && sysApi.isFightContext())
 			{
-				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
+				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME, _spellManager);
 			}
 		}
 		
