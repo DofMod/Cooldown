@@ -11,8 +11,8 @@ Ce module enregistre les sorts lancé en combat et qui on un cooldown > 1. Il le
 * L'interface permet de selectioner avec précision les personnages que l'on souhaite suivre.
 * La position de l'interface est automatiquement enregistré.
 
-![Interface avec le thème sombre](http://imageshack.us/a/img856/3005/srr0.png "Interface avec le thème sombre")
-![Interface avec le thème beige](http://imageshack.us/a/img163/8457/rhb5.png "Interface avec le thème beige")
+![Interface avec le thème beige](http://imageshack.us/a/img197/1936/kjxc.png "Interface avec le thème beige")
+![Interface avec le thème sombre](http://imageshack.us/a/img19/8383/w9k5.png "Interface avec le thème sombre")
 
 Download + Compile:
 -------------------
