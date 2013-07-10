@@ -1,5 +1,6 @@
 package ui
 {
+	import d2api.DataApi;
 	import d2api.FightApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
@@ -8,6 +9,7 @@ package ui
 	import d2components.Grid;
 	import d2enums.ComponentHookList;
 	import d2enums.SelectMethodEnum;
+	import types.CastedSpell;
 	
 	/**
 	 * Main ui class.
@@ -24,6 +26,7 @@ package ui
 		public var sysApi:SystemApi;
 		public var uiApi:UiApi;
 		public var fightApi:FightApi;
+		public var dataApi:DataApi;
 		
 		// Components
 		public var grid_spell:Grid;
@@ -35,6 +38,7 @@ package ui
 		
 		// Some globals
 		private var _displayedInfos:Array;
+		private var _displayedFighter:Array;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -48,11 +52,32 @@ package ui
 		public function main(params:Object):void
 		{
 			_displayedInfos = new Array();
+			_displayedFighter = new Array();
 			
 			initCombobox();
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
+		}
+		
+		public function update(castedSpells:Vector.<CastedSpell>):void
+		{
+			_displayedInfos = new Array();
+			
+			for each (var fighterId:int in _displayedFighter)
+			{
+				_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
+				
+				for each (var castedSpell:CastedSpell in castedSpells)
+				{
+					if (castedSpell.fighterId == fighterId)
+					{
+						_displayedInfos.push(new Info(fighterId, dataApi.getSpellWrapper(castedSpell.spellId)["name"], castedSpell.cooldown));
+					}
+				}
+			}
+			
+			grid_spell.dataProvider = _displayedInfos;
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -164,14 +189,15 @@ package ui
 		
 		private function displayFighter(fighterId:int):void
 		{
-			for each (var info:Info in _displayedInfos)
+			for each (var id:int in _displayedFighter)
 			{
-				if (info.fighterId == fighterId)
+				if (id == fighterId)
 				{
 					return;
 				}
 			}
 			
+			_displayedFighter.push(fighterId);
 			_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
 			
 			grid_spell.dataProvider = _displayedInfos;
@@ -179,6 +205,7 @@ package ui
 		
 		private function displayAllFighters():void
 		{
+			_displayedFighter = new Array();
 			_displayedInfos = new Array();
 			
 			for each (var fighterId:int in fightApi.getFighters())

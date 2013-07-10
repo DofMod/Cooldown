@@ -90,6 +90,11 @@ package
 				castedSpell.cooldown = cooldown;
 				
 				_castedSpells.push(castedSpell);
+				
+				if (isLoadedUi())
+				{
+					getUiScript().update(_castedSpells);
+				}
 			}
 		}
 		
@@ -108,6 +113,11 @@ package
 				{
 					_castedSpells.splice(index, 1);
 				}
+			}
+			
+			if (isLoadedUi())
+			{
+				getUiScript().update(_castedSpells);
 			}
 		}
 		
@@ -205,6 +215,11 @@ package
 		private function isLoadedUi():Boolean
 		{
 			return uiApi.getUi(UI_INSTANCE_NAME) != null;
+		}
+		
+		private function getUiScript():CooldownUI
+		{
+			return uiApi.getUi(UI_INSTANCE_NAME).uiClass;
 		}
 	}
 }
