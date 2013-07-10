@@ -67,11 +67,7 @@ package
 			sysApi.addHook(GameFightLeave, onGameFightLeave);
 			sysApi.addHook(FightEvent, onFightEvent);
 			sysApi.addHook(GameFightTurnEnd, onGameFightTurnEnd);
-			
-			if (sysApi.getData(ConfigEnum.OPEN_AUTO))
-			{
-				sysApi.addHook(GameFightStart, onGameFightStart);
-			}
+			sysApi.addHook(GameFightStart, onGameFightStart);
 			
 			modCommon.addOptionItem("module_cooldown", "(M) Cooldown", "Options du module Cooldown", "Cooldown::config");
 		}
@@ -165,7 +161,10 @@ package
 		
 		private function onGameFightStart():void
 		{
-			loadUi();
+			if (sysApi.getData(ConfigEnum.OPEN_AUTO))
+			{
+				loadUi();
+			}
 		}
 		
 		//::///////////////////////////////////////////////////////////
