@@ -20,7 +20,7 @@
 		<Texture name="tx_background">
 			<Size>
 				<AbsDimension x="430"
-							  y="270" />
+							  y="165" />
 			</Size>
 
 			<uri>[local.assets]tx_generalBackgroundWithTitle</uri>
@@ -71,12 +71,12 @@
 			<Anchors>
 				<Anchor>
 					<AbsDimension x="15"
-								  y="52" />
+								  y="51" />
 				</Anchor>
 			</Anchors>
 			<Size>
 				<AbsDimension x="400"
-							  y="180" />
+							  y="90" />
 			</Size>
 
 			<rendererName>MultiGridRenderer</rendererName>

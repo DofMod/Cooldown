@@ -6,6 +6,7 @@ package ui
 	import d2api.UiApi;
 	import d2components.ButtonContainer;
 	import d2components.ComboBox;
+	import d2components.GraphicContainer;
 	import d2components.Grid;
 	import d2enums.ComponentHookList;
 	import d2enums.FightEventEnum;
@@ -36,6 +37,8 @@ package ui
 		public var dataApi:DataApi;
 		
 		// Components
+		public var tx_background:GraphicContainer;
+		
 		public var grid_spell:Grid;
 		
 		public var cb_fighters:ComboBox;
@@ -87,7 +90,7 @@ package ui
 				}
 			}
 			
-			grid_spell.dataProvider = _displayedInfos;
+			initGrid(_displayedInfos);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -254,9 +257,32 @@ package ui
 			cb_fighters.dataProvider = fighterNames;
 		}
 		
-		private function initGrid():void
+		private function initGrid(infos:Array = null):void
 		{
-			grid_spell.dataProvider = [];
+			if (!infos || infos.length <= 3)
+			{
+				grid_spell.height = 90;
+				tx_background.height = grid_spell.height + 75;
+			}
+			else if (infos.length > 15)
+			{
+				grid_spell.height = 30 * 15;
+				tx_background.height = grid_spell.height + 75;
+			}
+			else
+			{
+				grid_spell.height = 30 * infos.length;
+				tx_background.height = grid_spell.height + 75;
+			}
+			
+			if (infos)
+			{
+				grid_spell.dataProvider = infos;
+			}
+			else
+			{
+				grid_spell.dataProvider = [];
+			}
 		}
 		
 		private function displayFighter(fighterId:int):void
@@ -272,7 +298,7 @@ package ui
 			_displayedFighter.push(fighterId);
 			_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
 			
-			grid_spell.dataProvider = _displayedInfos;
+			initGrid(_displayedInfos);
 		}
 		
 		private function displayAllFighters():void
@@ -300,7 +326,7 @@ package ui
 				}
 			}
 			
-			grid_spell.dataProvider = _displayedInfos;
+			initGrid(_displayedInfos);
 		}
 		
 		/**
