@@ -78,7 +78,7 @@ package
 			if (eventName == FightEventEnum.FIGHTER_CASTED_SPELL)
 			{
 				var cooldown:int = dataApi.getSpellWrapper(params[3], params[4])["minCastInterval"];
-				if (cooldown == 0)
+				if (cooldown < 2)
 				{
 					return;
 				}
