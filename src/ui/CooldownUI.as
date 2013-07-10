@@ -264,7 +264,7 @@ package ui
 			{
 				case LINE_SPELL:
 					componentsRef.lbl_name.text = data.label;
-					componentsRef.lbl_cooldown.text = data.cooldown;
+					componentsRef.lbl_cooldown.text = (data.cooldown == 0 ? "Maintenant" : data.cooldown + " tour" + (data.cooldown == 1 ? "" : "s"));
 					
 					break;
 				case LINE_FIGHTER:
