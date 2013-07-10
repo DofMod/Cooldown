@@ -18,10 +18,10 @@ Download + Compile:
 
 1. Install Git
 2. git clone https://github.com/alucas/Cooldown.git
-3. mxmlc -output SmithMagic.swf -compiler.library-path+=./modules-library.swc -source-path src -keep-as3-metadata Api Module DevMode -- src/SmithMagic.as
+3. mxmlc -output Cooldown.swf -compiler.library-path+=./modules-library.swc -source-path src -keep-as3-metadata Api Module DevMode -- src/Cooldown.as
 
 Installation:
-=============
+-------------
 
 1. Create a new *Cooldown* folder in the *ui* folder present in your Dofus instalation folder. (i.e. *ui/Cooldown*)
 2. Copy the following files in this new folder:
