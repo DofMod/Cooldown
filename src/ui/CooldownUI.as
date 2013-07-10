@@ -299,6 +299,7 @@ package ui
 			if (eventName == FightEventEnum.FIGHTER_DEATH || eventName == FightEventEnum.FIGHTER_SUMMONED)
 			{
 				initCombobox();
+				update();
 			}
 		}
 		
@@ -374,6 +375,14 @@ package ui
 			
 			_displayedFighter.push(fighterId);
 			_displayedInfos.push(new Info(fighterId, fightApi.getFighterName(fighterId)));
+			
+			for each (var castedSpell:CastedSpell in _spellManager.all())
+			{
+				if (castedSpell.fighterId == fighterId)
+				{
+					_displayedInfos.push(new Info(fighterId, dataApi.getSpellWrapper(castedSpell.spellId)["name"], true, castedSpell.cooldown));
+				}
+			}
 			
 			initGrid(_displayedInfos);
 		}
