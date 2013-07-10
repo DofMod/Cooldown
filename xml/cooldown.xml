@@ -16,7 +16,7 @@
 		<Constant name="bg_width" value="430" type="int" /> <!-- grid_width + 30 -->
 	</Constants>
 
-	<Container>
+	<Container name="ctn_main">
 		<mouseEnabled>true</mouseEnabled>
 		<Anchors>
 			<Anchor>

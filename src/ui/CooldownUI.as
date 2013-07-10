@@ -12,6 +12,7 @@ package ui
 	import d2enums.FightEventEnum;
 	import d2enums.SelectMethodEnum;
 	import d2hooks.FightEvent;
+	import flash.geom.Rectangle;
 	import types.CastedSpell;
 	
 	/**
@@ -29,6 +30,7 @@ package ui
 		private static const LINE_EMPTY:String = "line_empty";
 		private static const LINE_SPELL:String = "line_spell";
 		private static const LINE_FIGHTER:String = "line_fighter";
+		private static const BANNER_HEIGHT:int = 160;
 		
 		// APIs
 		public var sysApi:SystemApi;
@@ -37,6 +39,8 @@ package ui
 		public var dataApi:DataApi;
 		
 		// Components
+		public var ctn_main:GraphicContainer;
+		
 		public var tx_background:GraphicContainer;
 		
 		public var grid_spell:Grid;
@@ -75,8 +79,14 @@ package ui
 			initCombobox();
 			initGrid();
 			
+			uiApi.addComponentHook(btn_close, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
+			
 			uiApi.addComponentHook(cb_fighters, ComponentHookList.ON_SELECT_ITEM);
+			
+			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_PRESS);
+			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(ctn_main, ComponentHookList.ON_RELEASE_OUTSIDE);
 			
 			sysApi.addHook(FightEvent, onFightEvent);
 		}
@@ -130,6 +140,22 @@ package ui
 		}
 		
 		/**
+		 * Mouse press callback
+		 * 
+		 * @param	target
+		 */
+		public function onPress(target:Object):void
+		{
+			switch(target)
+			{
+				case ctn_main:
+					dragUiStart();
+					
+					break;
+			}
+		}
+		
+		/**
 		 * Mouse release callback.
 		 * 
 		 * @param	target
@@ -142,11 +168,31 @@ package ui
 					unloadUI();
 					
 					break;
+				case ctn_main:
+					dragUiStop();
+					
+					break;
 				default:
 					if (target.name.indexOf("btn_delete") != -1)
 					{
 						hideFighter(target.value);
 					}
+					
+					break;
+			}
+		}
+		
+		/**
+		 * Mouse release outside callback.
+		 * 
+		 * @param	target
+		 */
+		public function onReleaseOutside(target:Object) :  void
+		{
+			switch(target)
+			{
+				case ctn_main:
+					dragUiStop();
 					
 					break;
 			}
@@ -199,6 +245,7 @@ package ui
 					
 					componentsRef.btn_delete.value = data.fighterId;
 					
+					uiApi.addComponentHook(componentsRef.btn_delete, ComponentHookList.ON_PRESS); // Hack to disable the drag of the UI
 					uiApi.addComponentHook(componentsRef.btn_delete, ComponentHookList.ON_RELEASE);
 					
 					break;
@@ -291,6 +338,23 @@ package ui
 			{
 				grid_spell.dataProvider = [];
 			}
+		}
+		
+		private function dragUiStart() : void
+		{
+			ctn_main.startDrag(
+					false,
+					new Rectangle(
+							0,
+							0,
+							uiApi.getStageWidth() - tx_background.width,
+							uiApi.getStageHeight() - tx_background.height - BANNER_HEIGHT)
+					);
+		}
+		
+		private function dragUiStop() : void
+		{
+			ctn_main.stopDrag();
 		}
 		
 		private function displayFighter(fighterId:int):void
