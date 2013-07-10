@@ -73,7 +73,7 @@ package ui
 				{
 					if (castedSpell.fighterId == fighterId)
 					{
-						_displayedInfos.push(new Info(fighterId, dataApi.getSpellWrapper(castedSpell.spellId)["name"], castedSpell.cooldown));
+						_displayedInfos.push(new Info(fighterId, dataApi.getSpellWrapper(castedSpell.spellId)["name"], true, castedSpell.cooldown));
 					}
 				}
 			}
@@ -123,6 +123,11 @@ package ui
 					
 					break;
 				default:
+					if (target.name.indexOf("btn_delete") != -1)
+					{
+						hideFighter(target.value);
+					}
+					
 					break;
 			}
 		}
@@ -164,12 +169,29 @@ package ui
 			if (data)
 			{
 				componentsRef.lbl_name.text = data.label;
-				componentsRef.lbl_cooldown.text = data.cooldown;
+				
+				if (data.isSpell)
+				{
+					componentsRef.lbl_cooldown.text = data.cooldown;
+					
+					componentsRef.btn_delete.visible = false;
+				}
+				else
+				{
+					componentsRef.lbl_cooldown.text = "";
+					
+					componentsRef.btn_delete.visible = true;
+					componentsRef.btn_delete.value = data.fighterId;
+					
+					uiApi.addComponentHook(componentsRef.btn_delete, ComponentHookList.ON_RELEASE);
+				}
 			}
 			else
 			{
 				componentsRef.lbl_name.text = "";
 				componentsRef.lbl_cooldown.text = "";
+				
+				componentsRef.btn_delete.visible = false;
 			}
 		}
 		
@@ -220,6 +242,23 @@ package ui
 			}
 		}
 		
+		private function hideFighter(fighterId:int):void
+		{
+			_displayedFighter.splice(_displayedFighter.indexOf(fighterId), 1);
+			
+			for (var index:int = 0; index < _displayedInfos.length; index++)
+			{
+				if (_displayedInfos[index].fighterId == fighterId)
+				{
+					_displayedInfos.splice(index, 1);
+					
+					index--;
+				}
+			}
+			
+			grid_spell.dataProvider = _displayedInfos;
+		}
+		
 		/**
 		 * Unload the UI.
 		 */
@@ -233,12 +272,14 @@ package ui
 class Info {
 	public var fighterId:int;
 	public var label:String;
+	public var isSpell:Boolean;
 	public var cooldown:int;
 	
-	function Info(fighterId:int, label:String, cooldown:int = 0)
+	function Info(fighterId:int, label:String, isSpell:Boolean = false,  cooldown:int = 0)
 	{
 		this.fighterId = fighterId;
 		this.label = label;
+		this.isSpell = isSpell;
 		this.cooldown = cooldown;
 	}
 }
