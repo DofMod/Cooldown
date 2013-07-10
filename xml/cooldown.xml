@@ -164,15 +164,6 @@
 			
 			<!-- Grid line empty -->
 			<Container name="line_empty">
-				<Texture>
-					<Size>
-						<AbsDimension x="400"
-									  y="30" />
-					</Size>
-					
-					<autoGrid>true</autoGrid>
-					<uri>[local.assets]tx_bgSubTitle</uri>
-				</Texture>
 			</Container>
 		</Grid>
 
