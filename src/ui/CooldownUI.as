@@ -132,7 +132,7 @@ package ui
 			switch(component)
 			{
 				case cb_fighters:
-					if (selectMethod != SelectMethodEnum.CLICK || !isNewSelection)
+					if (selectMethod != SelectMethodEnum.CLICK)
 					{
 						break;
 					}
