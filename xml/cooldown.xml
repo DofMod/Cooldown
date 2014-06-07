@@ -90,6 +90,7 @@
 							  y="[local.grid_height]" />
 			</Size>
 
+			<!--<scrollDisplay>always</scrollDisplay>-->
 			<rendererName>MultiGridRenderer</rendererName>
 			<rendererArgs>updateEntry,getLineType,getDataLength,</rendererArgs>
 			<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>

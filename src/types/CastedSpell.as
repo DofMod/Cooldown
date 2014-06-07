@@ -10,6 +10,6 @@ package types
 	{
 		public var spellId:int;
 		public var fighterId:int;
-		public var cooldown:int;
+		public var cooldown:Number;
 	}
 }

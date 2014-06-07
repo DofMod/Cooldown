@@ -117,7 +117,7 @@ package
 					continue;
 				}
 				
-				_spellManager.at(index).cooldown--;
+				_spellManager.at(index).cooldown -= 0.5;
 				
 				if (_spellManager.at(index).cooldown == -1)
 				{
